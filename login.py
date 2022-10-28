@@ -35,18 +35,18 @@ def register():
 
 
 def cr_acc(name,user,mail,passw):
-    acc_list=dict()
+    acc_list=list()
     same_m=False
     same_u=False
     if len(acc_list)>0:
-        for i,j in acc_list:
-            if i==user:
+        for i in acc_list:
+            if i[2]==user:
                 same_u=True
-            if j[2]==mail:
+            if i[3]==mail:
                 same_m=True
-    if same_m==False :
+    if same_m==False:
         if same_u==False:
-            acc_list[user]=[name,mail,passw]
+            acc_list.append([name,user,mail,passw])
             print("Account with \nUsername: "+user+"\nEmail: "+mail+"\nPassword: "+passw+"\nHas been Created Successfully ;)")
         else:
             print("Username "+user+" Is Already in Use...\nRetry...")
@@ -55,4 +55,23 @@ def cr_acc(name,user,mail,passw):
         print("Email "+mail+" Is Already in Use...\nRetry...")
         register()
     print(acc_list)
-register()
+def run():
+    i=0
+    while i<10:
+        c=int(input("==============MENU==============\n"
+        "1. Create new Account\n2. Login into a Exsisting Account\n3. delete Your Account\n4. Forgot Password...\n5. EXIT\nEnter Choice: "))
+        if c==1:
+            register()
+        elif c==2:
+            pass #login()
+        elif c==3:
+            pass #del_acc()
+        elif c==4:
+            pass #forgot_pass()
+        elif c==5:
+            break
+        else:
+            print("Enter Valid Choice...")
+            run()
+    
+run()
