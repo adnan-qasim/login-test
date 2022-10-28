@@ -55,7 +55,7 @@ def cr_acc(name,user,mail,passw):
         print("Email "+mail+" Is Already in Use...\nRetry...")
         register()
     print(acc_list)
-def run():
+def menu():
     i=0
     while i<10:
         c=int(input("==============MENU==============\n"
@@ -72,6 +72,6 @@ def run():
             break
         else:
             print("Enter Valid Choice...")
-            run()
+            menu()
     
-run()
+menu()
