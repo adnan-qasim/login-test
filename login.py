@@ -1,5 +1,7 @@
 import re
 import time
+import pymongo
+import acc_db
 
 def register():
     fname =input("Enter full name: ")
@@ -35,26 +37,21 @@ def register():
 
 
 def cr_acc(name,user,mail,passw):
-    acc_list=list()
     same_m=False
     same_u=False
-    if len(acc_list)>0:
-        for i in acc_list:
-            if i[2]==user:
-                same_u=True
-            if i[3]==mail:
-                same_m=True
     if same_m==False:
         if same_u==False:
-            acc_list.append([name,user,mail,passw])
-            print("Account with \nUsername: "+user+"\nEmail: "+mail+"\nPassword: "+passw+"\nHas been Created Successfully ;)")
+            accId= acc_db.acc_crud.add_acc(name,user,mail,passw)
+            print(f"Account with \nUsername: {user}\nEmail: {mail}"
+            f"\nPassword: {passw}\nHas been Created Successfully at Id: {accId}  ;)")
         else:
             print("Username "+user+" Is Already in Use...\nRetry...")
             register()
     else:
         print("Email "+mail+" Is Already in Use...\nRetry...")
         register()
-    print(acc_list)
+
+
 def menu():
     i=0
     while i<10:
