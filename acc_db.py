@@ -11,5 +11,15 @@ class acc_crud:
             "Email Address": mail,
             "Password": passw
         }
-        accId= collection.insert_one(AccInfo).inserted_id
+        accId=collection.insert_one(AccInfo).inserted_id
         return accId
+
+    def acc_pass(uname):
+        client = pymongo.MongoClient('mongodb://localhost:27017/')
+        db = client['Accounts-DB']
+        collection = db.accounts
+        acc=collection.find_one({"Username":uname})
+        if acc!=None:
+            return acc["Password"]
+        else:
+            return None
