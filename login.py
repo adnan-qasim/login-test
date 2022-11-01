@@ -55,7 +55,7 @@ class register:
 class login:
 
     def __init__(self):
-        uname = input("Enter Your Username(or type NONE to Register)")
+        uname = input("Enter Your Username(or type NONE to Register): ")
         if uname.upper =='NONE':
             register()
             menu()
@@ -78,7 +78,7 @@ class login:
 class update:
 
     def __init__(self):
-        uname = input("Enter Your Username to Update")
+        uname = input("Enter Your Username to Update: ")
         passw=acc_crud.acc_pass(uname)
         if passw==None:
             print(f'Any User with Username: {uname} can not be found....\nRedirecting you to Menu...')
@@ -99,7 +99,23 @@ class update:
             pass
         else:
             res=acc_crud.up_acc(user,field,new_data)
-            print(f"User's {field} update result: {res.acknowledged}")
+            print(f"User's {field} update result: {res.acknowledged}\nNumber of Account Details Updated: {res.modified_count}")
+            
+
+class remove:
+
+    def __init__(self):
+        uname = input("Enter Your Account Username you want to Delete: ")
+        passw=acc_crud.acc_pass(uname)
+        if passw==None:
+            print(f'Any User with Username: {uname} can not be found....\nRedirecting you to Menu...')
+            time.sleep(3)
+            menu()
+        elif passw!=None:
+            in_pass=input(f"Enter password for the User {uname}: ")
+            if in_pass==passw:
+                res=acc_crud.del_acc(uname)
+                print(f"Deletion result: {res.acknowledged}\nNumber of Accounts(s) Deleted: {res.deleted_count}")
 
 
 
@@ -107,14 +123,13 @@ class menu:
     def __init__(self):
         i=0
         while i<10:
-            c=int(input("==============MENU==============\n"
-            "1. Create new Account\n2. Login into a Exsisting Account\n3. Delete Your Account\n4. Update Account\n5. EXIT\nEnter Choice: "))
+            c=int(input("==============MENU==============\n1. Create new Account\n2. Login into a Exsisting Account\n3. Delete Your Account\n4. Update Account\n5. EXIT\nEnter Choice: "))
             if c==1:
                 register()
             elif c==2:
                 login()
             elif c==3:
-                pass #del_acc()
+                remove()
             elif c==4:
                 update()
             elif c==5:
