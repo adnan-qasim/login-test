@@ -4,7 +4,7 @@ client = pymongo.MongoClient('mongodb+srv://AdnanQasim:11%40Ug2000@testingmongod
 class acc_crud:
     def add_acc(name,user,mail,passw):
         db = client['Accounts-DB']
-        collection = db.accounts
+        collection = db.newAccDB
         AccInfo={
             "Full Name": name,
             "Username": user,
@@ -16,7 +16,7 @@ class acc_crud:
 
     def acc_pass(uname):
         db = client['Accounts-DB']
-        collection = db.accounts
+        collection = db.newAccDB
         acc=collection.find_one({"Username":uname})
         if acc!=None:
             return acc["Password"]
@@ -41,19 +41,19 @@ class acc_crud:
 
     def all_acc():
         db = client['Accounts-DB']
-        collection = db.accounts
+        collection = db.newAccDB
         for accs in collection.find():
             for acc in accs:
                 print(f'{acc}: {accs[acc]}')
             print('\n')
     def up_acc(user,field,data):
         db = client['Accounts-DB']
-        collection = db.accounts
+        collection = db.newAccDB
         result=collection.update_one({"Username": user},{'$set' : {field: data}})
         return result
         
     def del_acc(user):
         db = client['Accounts-DB']
-        collection = db.accounts
+        collection = db.newAccDB
         result=collection.delete_one({"Username": user})
         return result
