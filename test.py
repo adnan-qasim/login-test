@@ -1,2 +1,3 @@
-import acc_db
-acc_db.acc_crud.all_acc()
+import os 
+print(os.environ.setdefault("DJANGO_SETTINGS_MODULE",f"{os.curdir}.first_django.settings"))
+
